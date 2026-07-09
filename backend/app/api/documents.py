@@ -5,9 +5,9 @@ from app.services.document_service import DocumentService
 router = APIRouter()
 
 @router.post("/documents")
-def create_document(file: UploadFile = File(...)):
+async def create_document(file: UploadFile = File(...)):
     document_service = DocumentService()
-    result = document_service.process_document(file)
+    result = await document_service.process_document(file)
 
     if not result["success"]:
         raise HTTPException(
